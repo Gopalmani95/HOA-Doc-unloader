@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HOA Doc Auditor</title>
+  <title>HOA Doc auditor</title>
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
@@ -22,7 +22,7 @@
     body::before {
       content: "";
       position: absolute;
-      top: 20%;
+      top: 15%;
       left: 50%;
       width: 600px;
       height: 400px;
@@ -88,7 +88,7 @@
   </style>
 </head>
 <body>
-  <h1>🏠 HOA Doc Auditor</h1>
+  <h1>🏠 HOA Doc auditor</h1>
 
   <div class="container">
     <h2>Upload HOA Document</h2>
@@ -103,7 +103,7 @@
     const fileInput = document.getElementById("fileInput");
     const status = document.getElementById("status");
 
-    // Replace this with your Gumloop endpoint later if needed
+    // Replace this with your Gumloop or API endpoint
     const UPLOAD_URL = "https://your-server-endpoint/upload";
 
     uploadBtn.addEventListener("click", async () => {
