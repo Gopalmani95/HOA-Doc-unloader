@@ -1,42 +1,95 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Upload File for Gumloop Workflow</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload PDF or DOC File</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f6f8fa;
+      background: #f9fafc;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
     }
-    .card {
+    .container {
       background: #fff;
       padding: 24px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      width: 340px;
       text-align: center;
-      width: 350px;
+    }
+    h2 {
+      margin-bottom: 10px;
     }
     input[type="file"] {
-      margin-top: 15px;
+      margin: 12px 0;
     }
     button {
-      margin-top: 20px;
-      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
       border: none;
-      background: #0b69ff;
-      color: #fff;
+      padding: 10px 20px;
       border-radius: 6px;
       cursor: pointer;
     }
-    button:disabled {
-      background: #ccc;
+    button:hover {
+      background-color: #0056b3;
     }
-    .status {
+    #status {
       margin-top: 10px;
       font-size: 14px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📄 Upload PDF/DOC File</h2>
+    <input type="file" id="fileInput" accept=".pdf,.doc,.docx" />
+    <button id="uploadBtn">Upload</button>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    const uploadBtn = document.getElementById("uploadBtn");
+    const fileInput = document.getElementById("fileInput");
+    const status = document.getElementById("status");
+
+    // 🔹 Replace with your actual upload endpoint later (optional)
+    const UPLOAD_URL = "https://your-server-endpoint/upload";
+
+    uploadBtn.addEventListener("click", async () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        status.textContent = "⚠️ Please select a PDF or DOC file.";
+        return;
+      }
+
+      // Show upload message
+      status.textContent = "⏳ Uploading...";
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch(UPLOAD_URL, {
+          method: "POST",
+          body: formData
+        });
+
+        if (response.ok) {
+          status.textContent = "✅ File uploaded successfully!";
+        } else {
+          status.textContent = "❌ Upload failed. Check your server URL.";
+        }
+      } catch (err) {
+        status.textContent = "❌ Error: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
